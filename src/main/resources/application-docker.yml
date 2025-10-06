@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: course-service
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  config:
+    activate:
+      on-profile: docker
+  datasource:
+    url: jdbc:postgresql://course_service_postgres:5432/ch_cs_db
+    username: ch_cs_user
+    password: dbhunter
+    driver-class-name: org.postgresql.Driver
+  data:
+    web:
+      pageable:
+        max-page-size: 20
+        default-page-size: 10
+        page-parameter: page
+        size-parameter: size
+        one-indexed-parameters: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: coursehub_rabbit_mq
+    password: 5yZ<ox6qscG0
+
+server:
+  port: 8082
+
+services:
+  identity:
+    secret-key: Z+2hXkMTIW+S3IlblVk48SRQgy31QhFu25BP84SNlSU=
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+
+  instance:
+    prefer-ip-address: true
+
+course:
+  service:
+    base-url: /v1/course
+  courses:
+    popular:
+      min-rating: 4.5
+    recent:
+      days: 10

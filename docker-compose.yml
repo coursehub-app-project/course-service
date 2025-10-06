@@ -1,0 +1,38 @@
+services:
+
+  course-service:
+    container_name: course-service
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://course_service_postgres:5432/${COURSE_DB}
+      SPRING_DATASOURCE_USERNAME: "${COURSE_USER}"
+      SPRING_DATASOURCE_PASSWORD: "${COURSE_PASS}"
+      SPRING_PROFILES_ACTIVE: docker
+    networks:
+      - coursehub-net
+
+
+  course_service_postgres:
+    container_name: course_service_postgres
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: "${COURSE_DB}"
+      POSTGRES_USER: "${COURSE_USER}"
+      POSTGRES_PASSWORD: "${COURSE_PASS}"
+    ports:
+      - "5434:5432"
+    volumes:
+      - course_postgres_data:/var/lib/postgresql/data
+    networks:
+      - coursehub-net
+
+networks:
+  coursehub-net:
+    driver: bridge
+
+volumes:
+  course_postgres_data:
