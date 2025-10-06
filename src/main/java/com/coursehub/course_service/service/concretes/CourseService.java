@@ -4,7 +4,8 @@ import com.coursehub.course_service.client.IdentityServiceClient;
 import com.coursehub.course_service.dto.request.CreateCourseRequest;
 import com.coursehub.course_service.dto.request.UpdateCourseRequest;
 import com.coursehub.course_service.dto.response.*;
-import com.coursehub.course_service.exception.*;
+import com.coursehub.course_service.exception.NotFoundException;
+import com.coursehub.course_service.exception.UnauthorizedOperationException;
 import com.coursehub.course_service.mapper.CourseMapper;
 import com.coursehub.course_service.model.Category;
 import com.coursehub.course_service.model.Course;
@@ -13,7 +14,6 @@ import com.coursehub.course_service.repository.CourseRepository;
 import com.coursehub.course_service.security.UserPrincipal;
 import com.coursehub.course_service.service.abstracts.ICategoryService;
 import com.coursehub.course_service.service.abstracts.ICourseService;
-import com.sun.jdi.request.InvalidRequestStateException;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.*;
@@ -305,15 +305,7 @@ public class CourseService implements ICourseService {
     }
 
     private UserSelfResponse getUserSelfResponse() {
-        UserSelfResponse userSelfResponse;
-
-        try {
-            userSelfResponse = identityServiceClient.getSelf().getBody();
-        } catch (Throwable throwable) {
-            userSelfResponse = identityServiceClient.getSelfFallBack(throwable).getBody();
-        }
-
-        return userSelfResponse;
+        return identityServiceClient.getSelf().getBody();
     }
 
 

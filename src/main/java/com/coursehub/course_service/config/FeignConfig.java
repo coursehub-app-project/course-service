@@ -1,14 +1,25 @@
 package com.coursehub.course_service.config;
 
+import com.coursehub.course_service.client.RetrieveMessageErrorDecoder;
+import feign.Logger.Level;
 import feign.RequestInterceptor;
+import feign.codec.ErrorDecoder;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import static feign.Logger.Level.FULL;
+
 @Configuration
 public class FeignConfig {
+
+    @Bean
+    public ErrorDecoder errorDecoder() {
+        return new RetrieveMessageErrorDecoder();
+    }
 
     @Bean
     public RequestInterceptor requestInterceptor() {

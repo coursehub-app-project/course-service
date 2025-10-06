@@ -1,7 +1,10 @@
 package com.coursehub.course_service.controller;
 
-import com.coursehub.course_service.dto.request.*;
+import com.coursehub.course_service.client.IdentityServiceClient;
+import com.coursehub.course_service.dto.request.CreateCourseRequest;
+import com.coursehub.course_service.dto.request.UpdateCourseRequest;
 import com.coursehub.course_service.dto.response.CourseResponse;
+import com.coursehub.course_service.dto.response.UserSelfResponse;
 import com.coursehub.course_service.security.UserPrincipal;
 import com.coursehub.course_service.service.abstracts.ICourseService;
 import jakarta.validation.Valid;

@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
 
 
     @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<GlobalExceptionResponse> courseNotFoundExceptionHandler(NotFoundException exception,
+    public ResponseEntity<GlobalExceptionResponse> notFoundExceptionHandler(NotFoundException exception,
                                                                                   HttpServletRequest request) {
 
         GlobalExceptionResponse body = createExceptionBody(
@@ -51,7 +51,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<GlobalExceptionResponse> HttpMessageNotReadableExceptionHandler(HttpMessageNotReadableException exception,
+    public ResponseEntity<GlobalExceptionResponse> httpMessageNotReadableExceptionHandler(HttpMessageNotReadableException exception,
                                                                                           HttpServletRequest request) {
 
         GlobalExceptionResponse body = createExceptionBody(
