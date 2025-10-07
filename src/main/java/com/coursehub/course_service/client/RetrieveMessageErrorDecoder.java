@@ -49,12 +49,13 @@ public class RetrieveMessageErrorDecoder implements ErrorDecoder {
             );
 
 
-        } catch (IOException exception) {
-            return new Exception(exception.getMessage());
+        } catch (IOException e) {
+            return new Exception(e.getMessage());
         }
 
+
         if (response.status() == 404) {
-            return new NotFoundException("Instructor not found");
+            return new NotFoundException(message);
         }
 
         return defaultDecoder.decode(methodKey, response);
